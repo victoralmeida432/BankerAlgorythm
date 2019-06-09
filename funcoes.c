@@ -39,19 +39,34 @@ int *gerarRecursos(int *max){
 
 
 void *pegarRecurso(int *solicitados, int *recursos){
-    int d = gerarRandom(DORME);
     // bloquear a área crítica de alguma forma MUTEX
+
+    pthread_mutex_lock(&lock);
     for (int i = 0; i < 5; i++) {
         recursos[i] = recursos[i] - solicitados[i];
-        // a subtração deve ser feita na função que acessa os recursos
+        // a subtração deve ser feita na função que acessa os 
     }
+    pthread_mutex_unlock(&lock);
+    // LIBERA O MUTEX GALERAAA
+
+    liberarRecurso(solicitados,recursos);
+}
+//nao pode ser um funcao pra pegar e liberar recurso
+// pois recurso so pode ser pego quando solicitado e liberado pelo mutex
+// ja liberar recurso pode ser a qualquer momento
+
+void *liberarRecurso(int *solicitados, int *recursos){
+    
+    int d = gerarRandom(DORME);
     sleep(d);
     for (int i = 0; i < 5; i++) {
         recursos[i] = recursos[i] + solicitados[i];
     }
-    // LIBERA O MUTEX GALERAAA
+
     pthread_exit(0);
 }
+
+
 
 
 int verificarRecursos(int *solicitados, int *disponivel){

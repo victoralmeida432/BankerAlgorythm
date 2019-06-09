@@ -19,6 +19,7 @@ int gerarRandom(int max);
 int *gerarRecursos(int *max);
 int verificarRecursos(int *solicitados, int *disponivel);
 void *pegarRecurso(int *solicitados, int *recursos);
+void *liberarRecurso(int *solicitados, int *recursos);
 
 
 

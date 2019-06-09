@@ -1,6 +1,8 @@
 #include "funcoes.c"
 #include "funcoes.h"
 
+pthread_mutex_t lock;
+//falta a Matriz global de onde os ira ser retirado os recursos
 
 int main(int argc, const char * argv[]) {
     FILE *fp;
@@ -20,7 +22,7 @@ int main(int argc, const char * argv[]) {
     cliente clientes[5];
  
     for (int i = 0; i < num; i++) {
-        pthread_create(&threads[i], &attr, initCliente(clientes[i]);
+        pthread_create(&threads[i], &attr, initCliente(clientes[i],numRecursos), argv[1]);
     }
                        sleep(50);
     return 0;
